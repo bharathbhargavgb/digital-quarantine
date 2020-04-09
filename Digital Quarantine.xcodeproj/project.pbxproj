@@ -1,0 +1,600 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8A6D6C024DF163900988CF4 /* MischiefMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A6D6BF24DF163900988CF4 /* MischiefMonitor.swift */; };
+		E8C0041624C56D6200C85F0D /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C0041524C56D6200C85F0D /* PreferenceViewController.swift */; };
+		E8C0041824C616DD00C85F0D /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C0041724C616DD00C85F0D /* EventMonitor.swift */; };
+		E8CB923B243ED0AB00979219 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB923A243ED0AB00979219 /* AppDelegate.swift */; };
+		E8CB923D243ED0AB00979219 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB923C243ED0AB00979219 /* ViewController.swift */; };
+		E8CB923F243ED0AD00979219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8CB923E243ED0AD00979219 /* Assets.xcassets */; };
+		E8CB9242243ED0AD00979219 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8CB9240243ED0AD00979219 /* Main.storyboard */; };
+		E8CB924E243ED0AD00979219 /* Digital_QuarantineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB924D243ED0AD00979219 /* Digital_QuarantineTests.swift */; };
+		E8CB9259243ED0AD00979219 /* Digital_QuarantineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB9258243ED0AD00979219 /* Digital_QuarantineUITests.swift */; };
+		E8CB92672440998400979219 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB92662440998400979219 /* UserPreferences.swift */; };
+		E8CB926924409B5D00979219 /* MachineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB926824409B5D00979219 /* MachineState.swift */; };
+		E8D50E1D244360FD00998936 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D50E1C244360FD00998936 /* Utility.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E8CB924A243ED0AD00979219 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8CB922F243ED0AB00979219 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8CB9236243ED0AB00979219;
+			remoteInfo = "Digital Quarantine";
+		};
+		E8CB9255243ED0AD00979219 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8CB922F243ED0AB00979219 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8CB9236243ED0AB00979219;
+			remoteInfo = "Digital Quarantine";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E8A6D6BF24DF163900988CF4 /* MischiefMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MischiefMonitor.swift; sourceTree = "<group>"; };
+		E8C0041524C56D6200C85F0D /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
+		E8C0041724C616DD00C85F0D /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		E8CB9237243ED0AB00979219 /* Digital Quarantine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Digital Quarantine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8CB923A243ED0AB00979219 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E8CB923C243ED0AB00979219 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E8CB923E243ED0AD00979219 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E8CB9241243ED0AD00979219 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E8CB9243243ED0AD00979219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8CB9244243ED0AD00979219 /* Digital_Quarantine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Digital_Quarantine.entitlements; sourceTree = "<group>"; };
+		E8CB9249243ED0AD00979219 /* Digital QuarantineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Digital QuarantineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8CB924D243ED0AD00979219 /* Digital_QuarantineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digital_QuarantineTests.swift; sourceTree = "<group>"; };
+		E8CB924F243ED0AD00979219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8CB9254243ED0AD00979219 /* Digital QuarantineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Digital QuarantineUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8CB9258243ED0AD00979219 /* Digital_QuarantineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digital_QuarantineUITests.swift; sourceTree = "<group>"; };
+		E8CB925A243ED0AD00979219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8CB92662440998400979219 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		E8CB926824409B5D00979219 /* MachineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineState.swift; sourceTree = "<group>"; };
+		E8D50E1C244360FD00998936 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8CB9234243ED0AB00979219 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CB9246243ED0AD00979219 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CB9251243ED0AD00979219 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8CB922E243ED0AB00979219 = {
+			isa = PBXGroup;
+			children = (
+				E8CB9239243ED0AB00979219 /* Digital Quarantine */,
+				E8CB924C243ED0AD00979219 /* Digital QuarantineTests */,
+				E8CB9257243ED0AD00979219 /* Digital QuarantineUITests */,
+				E8CB9238243ED0AB00979219 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8CB9238243ED0AB00979219 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8CB9237243ED0AB00979219 /* Digital Quarantine.app */,
+				E8CB9249243ED0AD00979219 /* Digital QuarantineTests.xctest */,
+				E8CB9254243ED0AD00979219 /* Digital QuarantineUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8CB9239243ED0AB00979219 /* Digital Quarantine */ = {
+			isa = PBXGroup;
+			children = (
+				E8CB923A243ED0AB00979219 /* AppDelegate.swift */,
+				E8CB926824409B5D00979219 /* MachineState.swift */,
+				E8CB92662440998400979219 /* UserPreferences.swift */,
+				E8CB923C243ED0AB00979219 /* ViewController.swift */,
+				E8CB923E243ED0AD00979219 /* Assets.xcassets */,
+				E8CB9240243ED0AD00979219 /* Main.storyboard */,
+				E8CB9243243ED0AD00979219 /* Info.plist */,
+				E8CB9244243ED0AD00979219 /* Digital_Quarantine.entitlements */,
+				E8D50E1C244360FD00998936 /* Utility.swift */,
+				E8C0041524C56D6200C85F0D /* PreferenceViewController.swift */,
+				E8C0041724C616DD00C85F0D /* EventMonitor.swift */,
+				E8A6D6BF24DF163900988CF4 /* MischiefMonitor.swift */,
+			);
+			path = "Digital Quarantine";
+			sourceTree = "<group>";
+		};
+		E8CB924C243ED0AD00979219 /* Digital QuarantineTests */ = {
+			isa = PBXGroup;
+			children = (
+				E8CB924D243ED0AD00979219 /* Digital_QuarantineTests.swift */,
+				E8CB924F243ED0AD00979219 /* Info.plist */,
+			);
+			path = "Digital QuarantineTests";
+			sourceTree = "<group>";
+		};
+		E8CB9257243ED0AD00979219 /* Digital QuarantineUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E8CB9258243ED0AD00979219 /* Digital_QuarantineUITests.swift */,
+				E8CB925A243ED0AD00979219 /* Info.plist */,
+			);
+			path = "Digital QuarantineUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8CB9236243ED0AB00979219 /* Digital Quarantine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8CB925D243ED0AD00979219 /* Build configuration list for PBXNativeTarget "Digital Quarantine" */;
+			buildPhases = (
+				E8CB9233243ED0AB00979219 /* Sources */,
+				E8CB9234243ED0AB00979219 /* Frameworks */,
+				E8CB9235243ED0AB00979219 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Digital Quarantine";
+			productName = "Digital Quarantine";
+			productReference = E8CB9237243ED0AB00979219 /* Digital Quarantine.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E8CB9248243ED0AD00979219 /* Digital QuarantineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8CB9260243ED0AD00979219 /* Build configuration list for PBXNativeTarget "Digital QuarantineTests" */;
+			buildPhases = (
+				E8CB9245243ED0AD00979219 /* Sources */,
+				E8CB9246243ED0AD00979219 /* Frameworks */,
+				E8CB9247243ED0AD00979219 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E8CB924B243ED0AD00979219 /* PBXTargetDependency */,
+			);
+			name = "Digital QuarantineTests";
+			productName = "Digital QuarantineTests";
+			productReference = E8CB9249243ED0AD00979219 /* Digital QuarantineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E8CB9253243ED0AD00979219 /* Digital QuarantineUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8CB9263243ED0AD00979219 /* Build configuration list for PBXNativeTarget "Digital QuarantineUITests" */;
+			buildPhases = (
+				E8CB9250243ED0AD00979219 /* Sources */,
+				E8CB9251243ED0AD00979219 /* Frameworks */,
+				E8CB9252243ED0AD00979219 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E8CB9256243ED0AD00979219 /* PBXTargetDependency */,
+			);
+			name = "Digital QuarantineUITests";
+			productName = "Digital QuarantineUITests";
+			productReference = E8CB9254243ED0AD00979219 /* Digital QuarantineUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8CB922F243ED0AB00979219 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Unnecessary Labs";
+				TargetAttributes = {
+					E8CB9236243ED0AB00979219 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					E8CB9248243ED0AD00979219 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = E8CB9236243ED0AB00979219;
+					};
+					E8CB9253243ED0AD00979219 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = E8CB9236243ED0AB00979219;
+					};
+				};
+			};
+			buildConfigurationList = E8CB9232243ED0AB00979219 /* Build configuration list for PBXProject "Digital Quarantine" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E8CB922E243ED0AB00979219;
+			productRefGroup = E8CB9238243ED0AB00979219 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8CB9236243ED0AB00979219 /* Digital Quarantine */,
+				E8CB9248243ED0AD00979219 /* Digital QuarantineTests */,
+				E8CB9253243ED0AD00979219 /* Digital QuarantineUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8CB9235243ED0AB00979219 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CB923F243ED0AD00979219 /* Assets.xcassets in Resources */,
+				E8CB9242243ED0AD00979219 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CB9247243ED0AD00979219 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CB9252243ED0AD00979219 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8CB9233243ED0AB00979219 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8A6D6C024DF163900988CF4 /* MischiefMonitor.swift in Sources */,
+				E8D50E1D244360FD00998936 /* Utility.swift in Sources */,
+				E8CB923D243ED0AB00979219 /* ViewController.swift in Sources */,
+				E8CB92672440998400979219 /* UserPreferences.swift in Sources */,
+				E8C0041624C56D6200C85F0D /* PreferenceViewController.swift in Sources */,
+				E8C0041824C616DD00C85F0D /* EventMonitor.swift in Sources */,
+				E8CB923B243ED0AB00979219 /* AppDelegate.swift in Sources */,
+				E8CB926924409B5D00979219 /* MachineState.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CB9245243ED0AD00979219 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CB924E243ED0AD00979219 /* Digital_QuarantineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CB9250243ED0AD00979219 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CB9259243ED0AD00979219 /* Digital_QuarantineUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E8CB924B243ED0AD00979219 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E8CB9236243ED0AB00979219 /* Digital Quarantine */;
+			targetProxy = E8CB924A243ED0AD00979219 /* PBXContainerItemProxy */;
+		};
+		E8CB9256243ED0AD00979219 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E8CB9236243ED0AB00979219 /* Digital Quarantine */;
+			targetProxy = E8CB9255243ED0AD00979219 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E8CB9240243ED0AD00979219 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8CB9241243ED0AD00979219 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E8CB925B243ED0AD00979219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E8CB925C243ED0AD00979219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		E8CB925E243ED0AD00979219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Digital Quarantine/Digital_Quarantine.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Digital Quarantine/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.unnecessary-labs.mac.Digital-Quarantine";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E8CB925F243ED0AD00979219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Digital Quarantine/Digital_Quarantine.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Digital Quarantine/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.unnecessary-labs.mac.Digital-Quarantine";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E8CB9261243ED0AD00979219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Digital QuarantineTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.unnecessary-labs.mac.Digital-QuarantineTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Digital Quarantine.app/Contents/MacOS/Digital Quarantine";
+			};
+			name = Debug;
+		};
+		E8CB9262243ED0AD00979219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Digital QuarantineTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.unnecessary-labs.mac.Digital-QuarantineTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Digital Quarantine.app/Contents/MacOS/Digital Quarantine";
+			};
+			name = Release;
+		};
+		E8CB9264243ED0AD00979219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Digital QuarantineUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.unnecessary-labs.mac.Digital-QuarantineUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Digital Quarantine";
+			};
+			name = Debug;
+		};
+		E8CB9265243ED0AD00979219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Digital QuarantineUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.unnecessary-labs.mac.Digital-QuarantineUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Digital Quarantine";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8CB9232243ED0AB00979219 /* Build configuration list for PBXProject "Digital Quarantine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8CB925B243ED0AD00979219 /* Debug */,
+				E8CB925C243ED0AD00979219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8CB925D243ED0AD00979219 /* Build configuration list for PBXNativeTarget "Digital Quarantine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8CB925E243ED0AD00979219 /* Debug */,
+				E8CB925F243ED0AD00979219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8CB9260243ED0AD00979219 /* Build configuration list for PBXNativeTarget "Digital QuarantineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8CB9261243ED0AD00979219 /* Debug */,
+				E8CB9262243ED0AD00979219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8CB9263243ED0AD00979219 /* Build configuration list for PBXNativeTarget "Digital QuarantineUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8CB9264243ED0AD00979219 /* Debug */,
+				E8CB9265243ED0AD00979219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8CB922F243ED0AB00979219 /* Project object */;
+}

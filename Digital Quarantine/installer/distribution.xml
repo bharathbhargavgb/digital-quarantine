@@ -1,0 +1,16 @@
+<installer-gui-script minSpecVersion="1">
+    <title>Digital Quarantine</title>
+    <license file="EULA.html" />
+    <options customize="never" require-scripts="false" />
+    <choice customLocation="/Applications" />
+    <choices-outline>
+        <line choice="default">
+            <line choice="com.unnecessary-labs.mac.Digital-Quarantine" />
+        </line>
+    </choices-outline>
+    <choice id="default" />
+    <choice customLocation="/Applications" id="com.unnecessary-labs.mac.Digital-Quarantine" visible="true">
+        <pkg-ref id="com.unnecessary-labs.mac.Digital-Quarantine" />
+    </choice>
+    <pkg-ref id="com.unnecessary-labs.mac.Digital-Quarantine" onConclusion="none" version="1.0">DQ.pkg</pkg-ref>
+-</installer-gui-script>
