@@ -1,1 +1,4 @@
 theme: jekyll-theme-dinky
+title: Digital Quarantine
+description: An app that doesn't have a quit button
+show_downloads: true
