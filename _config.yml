@@ -2,3 +2,5 @@ theme: jekyll-theme-dinky
 title: Digital Quarantine
 description: An app that doesn't have a quit button
 show_downloads: true
+github:
+  pkg_url: https://github.com/bharathbhargavgb/digital-quarantine/releases/download/v1.0/DigitalQuarantineInstaller.pkg
