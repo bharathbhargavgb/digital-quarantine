@@ -31,10 +31,18 @@ class MischiefMonitor {
     ]
 
     static func monitorMischief() -> String {
-        let brightness = MachineState.getBrightnessLevel()
+        let displayLevels = BrightnessManager.shared.getBrightness()
         let defaults = UserDefaults.standard
         var streakCount: Int = defaults.integer(forKey: "streakCount")
-        if brightness > 0.0 {
+
+        var didCheat: Bool = false
+        for (_, level) in displayLevels {
+            if level > UserPreferences.shared.dimnessLevel {
+                didCheat = true
+                break
+            }
+        }
+        if didCheat {
             streakCount += 1
         } else if streakCount > 0 {
             streakCount = 0

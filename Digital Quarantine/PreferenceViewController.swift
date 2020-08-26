@@ -45,11 +45,11 @@ extension PreferenceViewController {
             preferenceStatus.stringValue = ""
         }
 
-        let appDelegate = NSApplication.shared.delegate as! AppDelegate
-        appDelegate.preference.sleepInterval = sleepInterval.doubleValue * 60
-        appDelegate.preference.sleepDuration = sleepDuration.doubleValue
-        appDelegate.preference.notificationHeadsUp = notificationHeadsUp.doubleValue
+        UserPreferences.shared.sleepInterval = sleepInterval.doubleValue * 60
+        UserPreferences.shared.sleepDuration = sleepDuration.doubleValue
+        UserPreferences.shared.notificationHeadsUp = notificationHeadsUp.doubleValue
         
+        let appDelegate = NSApplication.shared.delegate as! AppDelegate
         appDelegate.restartTimer()
     }
 }

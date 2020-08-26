@@ -20,7 +20,7 @@ class UserPreferences {
         sleepInterval = 15.0
         sleepDuration = 7.0
         notificationHeadsUp = 2.0
-        dimnessLevel = 0.0
+        dimnessLevel = 0.1
     #else
         sleepInterval = 20.0 * 60
         sleepDuration = 20.0
@@ -28,4 +28,6 @@ class UserPreferences {
         dimnessLevel = 0.0
     #endif
     }
+
+    internal static let shared = UserPreferences()
 }

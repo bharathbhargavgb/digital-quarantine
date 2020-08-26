@@ -15,17 +15,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     let popover = NSPopover()
     var reminder: Timer?
-    var preference = UserPreferences()
     var eventMonitor: EventMonitor?
 
     // Starting point of application code
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSUserNotificationCenter.default.delegate = self
-        if permittedToRun() {
-            initApplication()
-        } else {
-            NSApplication.shared.terminate(self)
-        }
+        initApplication()
     }
 
 
@@ -34,37 +29,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         reminder?.invalidate()
     }
 
-
-    // Acquire Accessibility privilege
-    func permittedToRun() -> Bool {
-        if readPrivileges(shouldPrompt: false) == false {
-            showAlertPopup()
-            _ = readPrivileges(shouldPrompt: true)
-            return false
-        }
-        return true
-    }
-
-    private func showAlertPopup() {
-        let alert: NSAlert = NSAlert()
-        alert.messageText = "Accessibility permission required"
-        alert.informativeText = "Please enable Accessibility permission in Settings -> Security & Privacy and re-open the application"
-        alert.alertStyle = NSAlert.Style.informational
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
-    }
-
-    private func readPrivileges(shouldPrompt: Bool) -> Bool {
-        let trusted = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
-        let privOptions = [trusted: shouldPrompt] as CFDictionary
-        let status = AXIsProcessTrustedWithOptions(privOptions)
-        return status
-    }
-
-
     // Setup application
     func initApplication() {
-        DistributedNotificationCenter.default().removeObserver(self, name: NSNotification.Name("com.apple.accessibility.api"), object: nil)
         setStatusIcon()
         monitorToExitFocus()
         startApplicationInBackground()
@@ -91,24 +57,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Start timer with user preferences
     func startApplicationInBackground() {
         UserDefaults.standard.set(0, forKey: "streakCount")
-        reminder = Timer.scheduledTimer(timeInterval: preference.sleepInterval, target: self, selector: #selector(dimDisplayPeriodically), userInfo: nil, repeats: true)
+        reminder = Timer.scheduledTimer(timeInterval: UserPreferences.shared.sleepInterval, target: self, selector: #selector(dimDisplayPeriodically), userInfo: nil, repeats: true)
     }
 
     @objc func dimDisplayPeriodically(_ sender: Any?) {
         Utility.showNotification(subtitle: "You are about to be quarantined from this system", informativeText: "Brace for impact")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + preference.notificationHeadsUp) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + UserPreferences.shared.notificationHeadsUp) {
             self.toggleDisplayForPeriod()
         }
     }
 
     func toggleDisplayForPeriod() {
-        let brightness = MachineState.getBrightnessLevel()
-        DispatchQueue.main.asyncAfter(deadline: .now() + preference.sleepDuration) {
-            self.resumeBrightness(targetBrightness: brightness)
+        let curLevels: [CGDirectDisplayID: Float] = BrightnessManager.shared.getBrightness()
+        DispatchQueue.main.asyncAfter(deadline: .now() + UserPreferences.shared.sleepDuration) {
+            self.resumeBrightness(targetLevels: curLevels)
         }
-        restrictBrightness()
-        DispatchQueue.main.asyncAfter(deadline: .now() + (preference.sleepDuration * 0.3)) {
+        restrictBrightness(displays: curLevels)
+        DispatchQueue.main.asyncAfter(deadline: .now() + (UserPreferences.shared.sleepDuration * 0.3)) {
             let warningMessage = MischiefMonitor.monitorMischief()
             if !warningMessage.isEmpty {
                 Utility.showNotification(subtitle: "", informativeText: warningMessage)
@@ -118,33 +84,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     // Handle brightness changes
-    func restrictBrightness() {
-        var brightness = MachineState.getBrightnessLevel()
-        while brightness > preference.dimnessLevel {
-            changeBrightness(code: NX_KEYTYPE_BRIGHTNESS_DOWN)
-            Thread.sleep(forTimeInterval: 0.1)
-            brightness = MachineState.getBrightnessLevel()
+    func restrictBrightness(displays: [CGDirectDisplayID: Float]) {
+        var restrictLevels = [CGDirectDisplayID: Float]()
+        for displayID in displays.keys {
+            restrictLevels[displayID] = UserPreferences.shared.dimnessLevel
         }
+        BrightnessManager.shared.setBrightnessLevels(displayDict: restrictLevels)
     }
 
-    func resumeBrightness(targetBrightness: Float) {
-        var brightness = MachineState.getBrightnessLevel()
-        while brightness < targetBrightness {
-            changeBrightness(code: NX_KEYTYPE_BRIGHTNESS_UP)
-            Thread.sleep(forTimeInterval: 0.1)
-            brightness = MachineState.getBrightnessLevel()
-        }
-        MachineState.setBrightnessLevel(aLevel: targetBrightness)
-        NSLog("Expected brightness: \(targetBrightness)")
-        brightness = MachineState.getBrightnessLevel()
-        NSLog("Current brightness : \(brightness)")
-    }
-
-    func changeBrightness(code: Int32) {
-        let event1 = NSEvent.otherEvent(with: .systemDefined, location: NSPoint.zero, modifierFlags: NSEvent.ModifierFlags(rawValue: 0xa00), timestamp: 0, windowNumber: 0, context: nil, subtype: 8, data1: (Int((code << 16 as Int32) | (0xa << 8 as Int32))), data2: -1)
-        event1?.cgEvent?.post(tap: .cghidEventTap)
-        let event2 = NSEvent.otherEvent(with: .systemDefined, location: NSPoint.zero, modifierFlags: NSEvent.ModifierFlags(rawValue: 0xb00), timestamp: 0, windowNumber: 0, context: nil, subtype: 8, data1: (Int((code << 16 as Int32) | (0xb << 8 as Int32))), data2: -1)
-        event2?.cgEvent?.post(tap: .cghidEventTap)
+    func resumeBrightness(targetLevels: [CGDirectDisplayID: Float]) {
+        BrightnessManager.shared.setBrightnessLevels(displayDict: targetLevels)
     }
 
 
