@@ -24,7 +24,7 @@ class UserPreferences {
     #else
         sleepInterval = 20.0 * 60
         sleepDuration = 20.0
-        notificationHeadsUp = 0.5 * 60
+        notificationHeadsUp = 10.0
         dimnessLevel = 0.0
     #endif
     }

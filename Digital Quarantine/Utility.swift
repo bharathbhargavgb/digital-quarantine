@@ -17,7 +17,6 @@ class Utility {
         notification.title = "Digital Quarantine"
         notification.subtitle = subtitle
         notification.informativeText = informativeText
-        notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
     }
 }
