@@ -19,6 +19,7 @@
 		E8CB9259243ED0AD00979219 /* Digital_QuarantineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB9258243ED0AD00979219 /* Digital_QuarantineUITests.swift */; };
 		E8CB92672440998400979219 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB92662440998400979219 /* UserPreferences.swift */; };
 		E8CB926924409B5D00979219 /* BrightnessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB926824409B5D00979219 /* BrightnessManager.swift */; };
+		E8CCF224254EF38800381A48 /* com.unnecessary-labs.mac.DQ.plist in Resources */ = {isa = PBXBuildFile; fileRef = E8CCF223254EF38800381A48 /* com.unnecessary-labs.mac.DQ.plist */; };
 		E8D50E1D244360FD00998936 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D50E1C244360FD00998936 /* Utility.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		E8CB925A243ED0AD00979219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8CB92662440998400979219 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		E8CB926824409B5D00979219 /* BrightnessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessManager.swift; sourceTree = "<group>"; };
+		E8CCF223254EF38800381A48 /* com.unnecessary-labs.mac.DQ.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "com.unnecessary-labs.mac.DQ.plist"; path = "installer/Scripts/com.unnecessary-labs.mac.DQ.plist"; sourceTree = "<group>"; };
 		E8D50E1C244360FD00998936 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				E8C0041724C616DD00C85F0D /* EventMonitor.swift */,
 				E8A6D6BF24DF163900988CF4 /* MischiefMonitor.swift */,
 				E830E79C24F6B0B1004CBF55 /* DDC.swift */,
+				E8CCF223254EF38800381A48 /* com.unnecessary-labs.mac.DQ.plist */,
 			);
 			path = "Digital Quarantine";
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8CB923F243ED0AD00979219 /* Assets.xcassets in Resources */,
+				E8CCF224254EF38800381A48 /* com.unnecessary-labs.mac.DQ.plist in Resources */,
 				E8CB9242243ED0AD00979219 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
