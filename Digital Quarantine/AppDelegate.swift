@@ -31,9 +31,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Setup application
     func initApplication() {
+        registerSystemNotifications()
         setStatusIcon()
         monitorToExitFocus()
         startApplicationInBackground()
+    }
+
+    func registerSystemNotifications() {
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self, selector: #selector(onWakeNote(note:)),
+            name: NSWorkspace.didWakeNotification, object: nil)
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self, selector: #selector(onSleepNote(note:)),
+            name: NSWorkspace.willSleepNotification, object: nil)
     }
 
     func setStatusIcon() {
@@ -116,6 +127,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func closePopover(sender: Any?) {
         popover.performClose(sender)
         eventMonitor?.stop()
+    }
+
+    // app sleep-wake selectors
+    @objc func onWakeNote(note: NSNotification) {
+        NSLog("App waking from sleep")
+        startApplicationInBackground()
+    }
+
+    @objc func onSleepNote(note: NSNotification) {
+        NSLog("App is going to sleep")
+        reminder?.invalidate()
     }
 
     func restartTimer() {
