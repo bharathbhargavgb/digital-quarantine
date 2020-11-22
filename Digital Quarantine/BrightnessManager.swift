@@ -63,7 +63,7 @@ internal class BrightnessManager: NSObject {
             self.displayQueue.sync {
                 type(of: self).CoreDisplaySetUserBrightness?(self.displayID, Double(brightness))
                 type(of: self).DisplayServicesBrightnessChanged?(self.displayID, Double(brightness))
-                BrightnessManager.showBrightnessHUD?(self.displayID, Int(brightness * 64), 64)
+                //BrightnessManager.showBrightnessHUD?(self.displayID, Int(brightness * 64), 64)
             }
         }
         
@@ -194,7 +194,7 @@ internal class BrightnessManager: NSObject {
                     if success {
                         self.brightness = brightnessToWrite
                         self.lastSetOn = Date()
-                        BrightnessManager.showBrightnessHUD?(self.displayID, Int(self.brightness * 64), 64)
+                        //BrightnessManager.showBrightnessHUD?(self.displayID, Int(self.brightness * 64), 64)
                         // check if the user didn't request any new brightness change since the invocation of the write,
                         // and if not, empty the future brightness value
                         self.futureBrightness.mutate({ currentValue in
@@ -265,6 +265,26 @@ internal class BrightnessManager: NSObject {
         for (displayID, level) in displayDict {
             self.getDisplay(withID: displayID).setBrightness(to: level)
         }
+    }
+    
+    func increaseBrightness() {
+        for displayID in type(of: self).getAllDisplayIDs() {
+            self.increaseBrightness(onDisplay: displayID)
+        }
+    }
+    
+    func decreaseBrightness() {
+        for displayID in type(of: self).getAllDisplayIDs() {
+            self.decreaseBrightness(onDisplay: displayID)
+        }
+    }
+    
+    private func increaseBrightness(onDisplay displayID: CGDirectDisplayID, useQuarterSteps: Bool = false) {
+        self.getDisplay(withID: displayID).increaseBrightness(inQuarterSteps: useQuarterSteps)
+    }
+    
+    private func decreaseBrightness(onDisplay displayID: CGDirectDisplayID, useQuarterSteps: Bool = false) {
+        self.getDisplay(withID: displayID).decreaseBrightness(inQuarterSteps: useQuarterSteps)
     }
     
     private func getDisplay(withID displayID: CGDirectDisplayID) -> Display {

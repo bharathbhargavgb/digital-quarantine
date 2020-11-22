@@ -717,8 +717,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7vD-Vv-Tij">
-                                <rect key="frame" x="18" y="103" width="120" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Show a notification" id="qaE-W0-fmw">
+                                <rect key="frame" x="18" y="101" width="41" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Notify" id="qaE-W0-fmw">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -749,7 +749,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Hr-2e-oYf">
-                                <rect key="frame" x="188" y="137" width="77" height="16"/>
+                                <rect key="frame" x="188" y="136" width="77" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="minutes for " id="eYw-kn-s9a">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -765,7 +765,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9k-LO-mIu">
-                                <rect key="frame" x="140" y="98" width="30" height="21"/>
+                                <rect key="frame" x="62" y="98" width="30" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="51a-eY-gb5"/>
                                 </constraints>
@@ -777,7 +777,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="je7-93-liK">
-                                <rect key="frame" x="175" y="101" width="158" height="16"/>
+                                <rect key="frame" x="97" y="101" width="158" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="seconds before dimming." id="6uD-HX-1wu">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

@@ -19,10 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Starting point of application code
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        NSUserNotificationCenter.default.delegate = self
         initApplication()
     }
-
 
     // Tear down application
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -72,7 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func dimDisplayPeriodically(_ sender: Any?) {
-        Utility.showNotification(subtitle: "You are about to be quarantined from this system", informativeText: "Brace for impact")
+        Utility.notify(subtitle: "You are about to be quarantined from this system", informativeText: "Brace for impact")
 
         DispatchQueue.main.asyncAfter(deadline: .now() + UserPreferences.shared.notificationHeadsUp) {
             self.toggleDisplayForPeriod()
@@ -88,7 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + (UserPreferences.shared.sleepDuration * 0.3)) {
             let warningMessage = MischiefMonitor.monitorMischief()
             if !warningMessage.isEmpty {
-                Utility.showNotification(subtitle: "", informativeText: warningMessage)
+                Utility.notify(subtitle: "", informativeText: warningMessage)
             }
         }
     }
@@ -144,12 +142,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         reminder?.invalidate()
         startApplicationInBackground()
         closePopover(sender: self)
-    }
-}
-
-// Extension for Notification delegate
-extension AppDelegate: NSUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
-        return true
     }
 }

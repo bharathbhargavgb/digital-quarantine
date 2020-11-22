@@ -10,13 +10,18 @@ import Foundation
 
 class Utility {
 
-    static func showNotification(subtitle: String, informativeText: String) {
-        let notification = NSUserNotification()
-        let epochTime = NSDate().timeIntervalSince1970
-        notification.identifier = "quarantine-heads-up-\(epochTime)"
-        notification.title = "Digital Quarantine"
-        notification.subtitle = subtitle
-        notification.informativeText = informativeText
-        NSUserNotificationCenter.default.deliver(notification)
+    static func notify(subtitle: String, informativeText: String) {
+        thunder()
+    }
+    
+    static func thunder() {
+        for _ in 0..<3 {
+            BrightnessManager.shared.increaseBrightness()
+            BrightnessManager.shared.increaseBrightness()
+            usleep(100000)
+            BrightnessManager.shared.decreaseBrightness()
+            BrightnessManager.shared.decreaseBrightness()
+            usleep(100000)
+        }
     }
 }
