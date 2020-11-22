@@ -10,7 +10,7 @@ A Swift based macOS application aimed at digital wellbeing, especially to preven
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 20-20-20 rule: 
-#### Every 20 minutes, shift your eyes to look at an object at least 20 feet away, for at least 20 seconds.
+<b> Every 20 minutes, shift your eyes to look at an object at least 20 feet away, for at least 20 seconds. </b>
 
 ### Does it work?
 Read for yourself - https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome
@@ -22,7 +22,9 @@ Digital Quarantine uses an aggressive approach to prevent you from staring at th
 <img src="https://github.com/bharathbhargavgb/digital-quarantine/blob/resources/readme_resource/Popover.png?raw=true" 
 alt="Preference dialog" title="Digital Quarantine" width=589 />
 
-As shown above, the app sets the brightness to zero periodically for a fixed interval. Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or do anything that does not involve a digital screen.
+As shown above, the app sets the brightness to zero periodically for a fixed interval. Don't worry, the app gives a heads-up before the black out, so you have time to brace for impact.
+
+Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or do anything that does not involve a digital screen.
 
 ## Features
  - Yes, you guessed it right. There is <b>NO quit button </b>. In fact, you'll find it pretty hard to quit this application.
