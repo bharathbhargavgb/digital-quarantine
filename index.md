@@ -1,4 +1,4 @@
-<img src="https://github.com/bharathbhargavgb/digital-quarantine/blob/master/Digital%20Quarantine/Assets.xcassets/AppIcon.appiconset/mountain%40256.png" 
+<img src="https://github.com/bharathbhargavgb/digital-quarantine/blob/master/Digital%20Quarantine/Assets.xcassets/AppIcon.appiconset/mountain@256.png?raw=true" 
 alt="Digital Quarantine logo" title="Digital Quarantine" align="right" height="150" />
 
 
@@ -19,10 +19,10 @@ Read for yourself - https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/c
 Digital Quarantine uses an aggressive approach to prevent you from staring at the screen for prolonged duration. 
 
 <br>
-<img src="https://github.com/bharathbhargavgb/digital-quarantine/blob/resources/readme_resource/Popover.png" 
+<img src="https://github.com/bharathbhargavgb/digital-quarantine/blob/resources/readme_resource/Popover.png?raw=true" 
 alt="Preference dialog" title="Digital Quarantine" width=589 />
 
-As shown above, the app sets the brightness to zero periodically for a fixed interval. Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or anything that does not involve a digital screen.
+As shown above, the app sets the brightness to zero periodically for a fixed interval. Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or do anything that does not involve a digital screen.
 
 ## Features
  - Yes, you guessed it right. There is <b>NO quit button </b>. In fact, you'll find it pretty hard to quit this application.
