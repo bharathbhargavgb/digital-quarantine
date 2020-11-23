@@ -9,11 +9,6 @@
 import Foundation
 
 class Utility {
-
-    static func notify(subtitle: String, informativeText: String) {
-        thunder()
-    }
-    
     static func thunder() {
         for _ in 0..<3 {
             BrightnessManager.shared.increaseBrightness()

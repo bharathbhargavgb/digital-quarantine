@@ -48,7 +48,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func setStatusIcon() {
         if let button = statusItem.button {
             button.image = NSImage(named:NSImage.Name("Pigeon"))
-            /* <a target="_blank" href="https://icons8.com/icons/set/peace-pigeon">Peace Pigeon icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> */
             button.action = #selector(togglePopover(_:))
         }
         popover.contentViewController = PreferenceViewController.freshController()
@@ -70,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func dimDisplayPeriodically(_ sender: Any?) {
-        Utility.notify(subtitle: "You are about to be quarantined from this system", informativeText: "Brace for impact")
+        Utility.thunder()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + UserPreferences.shared.notificationHeadsUp) {
             self.toggleDisplayForPeriod()
@@ -84,11 +83,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         restrictBrightness(displays: curLevels)
         DispatchQueue.main.asyncAfter(deadline: .now() + (UserPreferences.shared.sleepDuration * 0.3)) {
-            let warningMessage = MischiefMonitor.monitorMischief()
-            if !warningMessage.isEmpty {
-                Utility.notify(subtitle: "", informativeText: warningMessage)
+            let strike = MischiefMonitor.monitorMischief()
+            if strike > 1 {
+                self.showPopover(sender: self)
+                let burnMinutes = strike * Int(UserPreferences.shared.sleepInterval / 60)
+                self.resetPopoverMessage(message: "You've been staring at the screen for \(burnMinutes)+ minutes")
             }
         }
+    }
+    
+    func resetPopoverMessage(message: String) {
+        let controller = self.popover.contentViewController as! PreferenceViewController
+        controller.preferenceStatus.stringValue = message
     }
 
 
@@ -123,6 +129,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func closePopover(sender: Any?) {
+        resetPopoverMessage(message: "")
         popover.performClose(sender)
         eventMonitor?.stop()
     }
