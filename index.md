@@ -11,7 +11,7 @@ A Swift based macOS application aimed at digital wellbeing, especially to preven
 <b> Every 20 minutes, shift your eyes to look at an object at least 20 feet away, for at least 20 seconds. </b>
 
 ### Does it work?
-Read for yourself - a href="https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome">https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome</a>
+Read for yourself - <a href="https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome">https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome</a>
 
 ### How do we achieve it?
 Digital Quarantine uses an aggressive approach to prevent you from staring at the screen for prolonged duration. 
@@ -30,7 +30,7 @@ Whenever the screen blacks-out, get out of wherever you are, do a few stretches,
 
 ## Other links
  - <a href="https://github.com/bharathbhargavgb/digital-quarantine/releases">Releases</a>
- - <a href="https://github.com/bharathbhargavgb/digital-quarantine/blob/master/LICENSE">MIT License"</a>
+ - <a href="https://github.com/bharathbhargavgb/digital-quarantine/blob/master/LICENSE">MIT License</a>
 
 #### Credits
 <a target="_blank" href="https://icons8.com/icons/set/peace-pigeon">Peace Pigeon icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
