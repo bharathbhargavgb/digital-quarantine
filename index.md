@@ -33,4 +33,5 @@ Whenever the screen blacks-out, get out of wherever you are, do a few stretches,
  - <a href="https://github.com/bharathbhargavgb/digital-quarantine/blob/master/LICENSE">MIT License</a>
 
 #### Credits
-<a target="_blank" href="https://icons8.com/icons/set/peace-pigeon">Peace Pigeon icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+ - <a target="_blank" href="https://icons8.com/icons/set/peace-pigeon">Peace Pigeon icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+ - Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
