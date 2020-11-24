@@ -15,7 +15,6 @@ Read for yourself - <a href="https://www.aoa.org/healthy-eyes/eye-and-vision-con
 
 ### How do we achieve it?
 Digital Quarantine uses an aggressive approach to prevent you from staring at the screen for prolonged duration. 
-
 <br>
 <img src="https://github.com/bharathbhargavgb/digital-quarantine/blob/resources/readme_resource/Popover.png?raw=true" 
 alt="Preference dialog" title="Digital Quarantine" width=589 />
@@ -25,7 +24,7 @@ As shown above, the app sets the brightness to zero periodically for a fixed int
 Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or do anything that does not involve a digital screen.
 
 ## Features
- - Yes, you guessed it right. There is <b>NO quit button </b>. In fact, you'll find it pretty hard to quit this application.
+ - Yes, you guessed it right. There is <b>NO quit button</b>. In fact, you'll find it pretty hard to quit this application.
  - Tune preferences based on your need. Although, we recommend you set it at 20-20-20.
 
 ## Other links
