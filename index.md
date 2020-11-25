@@ -24,8 +24,10 @@ As shown above, the app sets the brightness to zero periodically for a fixed int
 Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or do anything that does not involve a digital screen.
 
 ## Features
- - Yes, you guessed it right. There is <b>NO quit button</b>. In fact, you'll find it pretty hard to quit this application.
- - Tune preferences based on your need. Although, we recommend you set it at 20-20-20.
+ - Yes, you guessed it right. There is <b>NO quit button</b>. In fact, you'll find it pretty hard to quit this application
+ - Tune preferences based on your need. Although, we recommend you set it at 20-20-20
+ - App launches automatically after system restart or in case of any crashes due to external factors
+ - Support for external monitors
 
 ## Other links
  - <a href="https://github.com/bharathbhargavgb/digital-quarantine/releases">Releases</a>
