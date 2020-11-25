@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setStatusIcon()
         monitorToExitFocus()
         startApplicationInBackground()
+        showPopover(sender: self)
     }
 
     func registerSystemNotifications() {
