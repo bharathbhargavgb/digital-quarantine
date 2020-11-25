@@ -36,3 +36,8 @@ Whenever the screen blacks-out, get out of wherever you are, do a few stretches,
 #### Credits
  - <a target="_blank" href="https://icons8.com/icons/set/peace-pigeon">Peace Pigeon icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
  - Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+
+
+<a href="https://www.paypal.com/paypalme/bharathbhargavgb">
+ <img src="https://img.shields.io/badge/Buy%20me-Coffee-green" />
+</a>
