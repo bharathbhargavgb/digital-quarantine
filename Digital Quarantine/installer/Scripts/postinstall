@@ -6,5 +6,3 @@ daemonDirPath="/Library/LaunchDaemons"
 sudo cp -f $plistFile $daemonDirPath
 sudo chmod 600 $daemonDirPath/$plistFile
 sudo chown root $daemonDirPath/$plistFile
-
-sudo launchctl load $daemonDirPath/$plistFile
