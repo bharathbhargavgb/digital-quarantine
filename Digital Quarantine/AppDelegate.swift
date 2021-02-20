@@ -136,12 +136,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     // app sleep-wake selectors
-    @objc func onWakeNote(note: NSNotification) {
+    @objc func onWakeNote(note: Notification) {
         NSLog("App waking from sleep")
         startApplicationInBackground()
     }
 
-    @objc func onSleepNote(note: NSNotification) {
+    @objc func onSleepNote(note: Notification) {
         NSLog("App is going to sleep")
         reminder?.invalidate()
     }

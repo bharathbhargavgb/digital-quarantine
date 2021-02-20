@@ -18,7 +18,7 @@ class UserPreferences {
     init() {
     #if DEBUG
         sleepInterval = 15.0
-        sleepDuration = 7.0
+        sleepDuration = 5.0
         notificationHeadsUp = 2.0
         dimnessLevel = 0.0
     #else
