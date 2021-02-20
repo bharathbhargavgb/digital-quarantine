@@ -1,7 +1,7 @@
 #!/bin/sh
 
 plistFile="com.unnecessary-labs.mac.DQ.plist"
-daemonDirPath="/Library/LaunchDaemons"
+daemonDirPath="/Library/LaunchAgents"
 
 sudo cp -f $plistFile $daemonDirPath
 sudo chmod 600 $daemonDirPath/$plistFile
