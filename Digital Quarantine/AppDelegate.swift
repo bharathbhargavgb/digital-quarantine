@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Setup application
     func initApplication() {
         registerSystemNotifications()
-        setStatusIcon()
+        setStatusButton()
         monitorToExitFocus()
         startApplicationInBackground()
         showPopover(sender: self)
@@ -46,14 +46,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             name: NSWorkspace.willSleepNotification, object: nil)
     }
 
-    func setStatusIcon() {
+    func setStatusButton() {
+        setStatusIcon(image: Constants.Assets.menuIcon)
         if let button = statusItem.button {
-            button.image = NSImage(named:NSImage.Name("Pigeon"))
             button.action = #selector(togglePopover(_:))
         }
         popover.contentViewController = PreferenceViewController.freshController()
     }
     
+    func setStatusIcon(image: String) {
+        if let button = statusItem.button {
+            button.image = NSImage(named:NSImage.Name(image))
+        }
+    }
+
     func monitorToExitFocus() {
         eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
             if let strongSelf = self, strongSelf.popover.isShown {
@@ -71,6 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func dimDisplayPeriodically(_ sender: Any?) {
         Utility.thunder()
+        setStatusIcon(image: Constants.Assets.menuIconAlert)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + UserPreferences.shared.notificationHeadsUp) {
             self.toggleDisplayForPeriod()
@@ -81,6 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let curLevels: [CGDirectDisplayID: Float] = BrightnessManager.shared.getBrightness()
         DispatchQueue.main.asyncAfter(deadline: .now() + UserPreferences.shared.sleepDuration) {
             self.resumeBrightness(targetLevels: curLevels)
+            self.setStatusIcon(image: Constants.Assets.menuIcon)
         }
         restrictBrightness(displays: curLevels)
         DispatchQueue.main.asyncAfter(deadline: .now() + (UserPreferences.shared.sleepDuration * 0.3)) {

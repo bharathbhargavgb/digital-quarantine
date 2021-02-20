@@ -11,6 +11,7 @@
 		E8A6D6C024DF163900988CF4 /* MischiefMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A6D6BF24DF163900988CF4 /* MischiefMonitor.swift */; };
 		E8C0041624C56D6200C85F0D /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C0041524C56D6200C85F0D /* PreferenceViewController.swift */; };
 		E8C0041824C616DD00C85F0D /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C0041724C616DD00C85F0D /* EventMonitor.swift */; };
+		E8C5205F25E170CA00894E82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5205E25E170CA00894E82 /* Constants.swift */; };
 		E8CB923B243ED0AB00979219 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB923A243ED0AB00979219 /* AppDelegate.swift */; };
 		E8CB923D243ED0AB00979219 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CB923C243ED0AB00979219 /* ViewController.swift */; };
 		E8CB923F243ED0AD00979219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8CB923E243ED0AD00979219 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		E8A6D6BF24DF163900988CF4 /* MischiefMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MischiefMonitor.swift; sourceTree = "<group>"; };
 		E8C0041524C56D6200C85F0D /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
 		E8C0041724C616DD00C85F0D /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		E8C5205E25E170CA00894E82 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E8CB9237243ED0AB00979219 /* Digital Quarantine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Digital Quarantine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8CB923A243ED0AB00979219 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8CB923C243ED0AB00979219 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				E8A6D6BF24DF163900988CF4 /* MischiefMonitor.swift */,
 				E830E79C24F6B0B1004CBF55 /* DDC.swift */,
 				E8CCF223254EF38800381A48 /* com.unnecessary-labs.mac.DQ.plist */,
+				E8C5205E25E170CA00894E82 /* Constants.swift */,
 			);
 			path = "Digital Quarantine";
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				E8CB923D243ED0AB00979219 /* ViewController.swift in Sources */,
 				E830E79D24F6B0B1004CBF55 /* DDC.swift in Sources */,
 				E8CB92672440998400979219 /* UserPreferences.swift in Sources */,
+				E8C5205F25E170CA00894E82 /* Constants.swift in Sources */,
 				E8C0041624C56D6200C85F0D /* PreferenceViewController.swift in Sources */,
 				E8C0041824C616DD00C85F0D /* EventMonitor.swift in Sources */,
 				E8CB923B243ED0AB00979219 /* AppDelegate.swift in Sources */,
