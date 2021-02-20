@@ -3,7 +3,7 @@
 //  Digital Quarantine
 //
 //  Created by Bharath Bhargav on 8/26/20.
-//  Copyright © 2020 Unnecessary Labs. All rights reserved.
+//  Copyright © 2021 Unnecessary Labs. All rights reserved.
 //
 
 import Foundation
