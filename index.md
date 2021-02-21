@@ -25,6 +25,8 @@ Whenever the screen blacks-out, get out of wherever you are, do a few stretches,
 
 ## Features
  - Yes, you guessed it right. There is <b>NO quit button</b>. In fact, you'll find it pretty hard to quit this application
+ - You can manually override the brightness, BUT DON'T DO IT UNLESS YOUR LIFE DEPENDS ON IT
+ - Defaulters are identified and guilted into proper behaviour
  - Tune preferences based on your need. Although, we recommend you set it at 20-20-20
  - App launches automatically after system restart or in case of any crashes due to external factors
  - Support for external monitors
