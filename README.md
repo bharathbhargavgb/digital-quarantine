@@ -25,7 +25,7 @@ alt="Preference dialog" title="Digital Quarantine" width=589 />
 
 As shown above, the app sets the brightness to zero periodically for a fixed interval. Don't worry, the app gives a heads-up before the black out, so you have time to brace for impact.
 
-Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or do anything that does not involve a digital screen.
+Whenever the screen blacks-out, get out of wherever you are, do a few stretches, look through the window, talk to someone or do anything that does not involve a digital screen. And definitely have a sip of water. 
 
 ## Features
  - Yes, you guessed it right. There is <b>NO quit button</b>. In fact, you'll find it pretty hard to quit this application
