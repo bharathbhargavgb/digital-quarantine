@@ -7,6 +7,8 @@ Digital Quarantine
 
 A Swift based macOS application aimed at digital wellbeing, especially to prevent [Computer Vision Syndrome](https://en.wikipedia.org/wiki/Computer_vision_syndrome).
 
+![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fbharathbhargavgb.github.io%2Fdigital-quarantine%2F)
+
 ## 20-20-20 rule: 
 <b> Every 20 minutes, shift your eyes to look at an object at least 20 feet away, for at least 20 seconds. </b>
 
@@ -43,3 +45,4 @@ Whenever the screen blacks-out, get out of wherever you are, do a few stretches,
 <a href="https://www.paypal.com/paypalme/bharathbhargavgb">
  <img src="https://img.shields.io/badge/Buy%20me-Coffee-green" />
 </a>
+
