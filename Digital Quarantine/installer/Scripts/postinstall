@@ -1,8 +1,15 @@
 #!/bin/sh
 
+echo "POSTINSTALL SCRIPT START"
+
 plistFile="com.unnecessary-labs.mac.DQ.plist"
 daemonDirPath="/Library/LaunchAgents"
 
 sudo cp -f $plistFile $daemonDirPath
-sudo chmod 600 $daemonDirPath/$plistFile
+sudo chmod 755 $daemonDirPath/$plistFile
 sudo chown root $daemonDirPath/$plistFile
+
+sudo launchctl load $daemonDirPath/$plistFile
+
+echo "POSTINSTALL SCRIPT END"
+exit 0

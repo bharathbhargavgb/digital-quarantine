@@ -1,0 +1,26 @@
+#!/bin/sh
+
+echo "PREINSTALL SCRIPT START"
+
+plistFile="com.unnecessary-labs.mac.DQ.plist"
+daemonDirPath="/Library/LaunchAgents"
+
+# Unload existing daemon
+if [ -e $daemonDirPath/$plistFile ]
+then
+    echo "Unload and delete existing launch agent at $daemonDirPath/$plistFile"
+    launchctl unload $daemonDirPath/$plistFile
+    sudo rm $daemonDirPath/$plistFile
+fi
+
+DQ_pid=$(ps -fe | grep "Contents/MacOS/[D]igital Quarantine" | awk '{print $2}')
+if [[ -n $DQ_pid ]];
+then
+    echo "Killing old process with pid $DQ_pid"
+    kill $DQ_pid
+else
+    echo "No existing Digital Quarantine process found"
+fi
+
+echo "PREINSTALL SCRIPT END"
+exit 0
