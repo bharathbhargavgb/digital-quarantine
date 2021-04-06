@@ -133,6 +133,17 @@ internal class BrightnessManager: NSObject {
             self.brightnessScale = 100
             self.lastSetOn = Date.distantPast
             
+            let settingsFilePath = NSString(string: "~/.config/DQ/settings.plist").expandingTildeInPath
+            var settings: NSDictionary?
+            settings = NSDictionary(contentsOfFile: settingsFilePath)
+
+            if let defaultBrightness = settings?["defaultBrightnessFallback"] {
+                let val = defaultBrightness as! Float
+                if val >= 0.0 && val <= 1.0 {
+                    self.brightness = val
+                }
+            }
+
             if BrightnessManager.shared.readBrightnessBeforeChanging.boolValue {
                 if let (curr, max) = DDC.read(.brightness, fromDisplay: displayID) {
                     self.canReadBrightness = true
