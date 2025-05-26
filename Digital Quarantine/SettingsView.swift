@@ -29,7 +29,7 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(spacing: 15) {
-            Text("20-20-20 Rule Configuration")
+            Text("Digital Quarantine config")
                 .font(.headline)
 
             HStack {

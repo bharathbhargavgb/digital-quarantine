@@ -1,6 +1,16 @@
 import Foundation
 import AppKit
 import SwiftUI
+import QuartzCore
+
+// Define the duration for the fade-in animation.
+let FADE_DURATION: TimeInterval = 3.0
+
+/// Defines the current phase of the overlay, influencing content display.
+enum OverlayPhase {
+    case fadingIn // Overlay is gradually appearing
+    case resting // Overlay is fully visible and the rest countdown is active
+}
 
 /// Manages the core logic for the Digital Quarantine app, including:
 /// - Scheduling regular eye rest breaks.
@@ -41,6 +51,8 @@ class EyeRestManager: NSObject, ObservableObject {
     @Published var currentCountdown: Int = 0
     /// Published property for the current instruction text, observed by `OverlayContentView`.
     @Published var currentInstruction: String = ""
+    /// Published property indicating the current phase of the overlay (fading in or resting).
+    @Published var overlayPhase: OverlayPhase = .resting
 
     /// A weak reference to the StatusBarController, primarily for potential app termination.
     weak var statusBarController: StatusBarController?
@@ -114,15 +126,14 @@ class EyeRestManager: NSObject, ObservableObject {
         // Invalidate the pre-rest icon timer here too, just in case it's still pending
         // and the main timer fired slightly early or was manually triggered.
         preRestIconTimer?.invalidate() // Invalidate pending icon change.
+        self.overlayPhase = .fadingIn
 
         print("Time for a break! Initiating break.")
         showOverlay() // Display the full-screen overlay.
-        startRestCountdown() // Start the countdown for the break duration.
     }
 
     /// Displays the full-screen, undismissable overlay.
     private func showOverlay() {
-        // ... (existing implementation - no functional changes here) ...
         DispatchQueue.main.async {
             let screenRect = NSScreen.main?.frame ?? NSScreen.screens.first?.frame ?? NSRect.zero
             if screenRect.size.width == 0 || screenRect.size.height == 0 {
@@ -156,7 +167,31 @@ class EyeRestManager: NSObject, ObservableObject {
             // Ensure it's on top of all other windows, including full-screen apps.
             self.overlayWindow?.orderFrontRegardless()
 
-            print("OverlayWindow ordered front and app activated (stealing focus).")
+            // Set initial alpha again just to be safe before animation.
+            self.overlayWindow?.alphaValue = 0.0
+
+            NSAnimationContext.beginGrouping() // Start an animation context.
+            NSAnimationContext.current.duration = FADE_DURATION // Set the duration for animations within this context.
+            // Set the timing function for animations within this context.
+            NSAnimationContext.current.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            
+            NSAnimationContext.current.completionHandler = { [weak self] in
+                guard let self = self else { return }
+                print("Fade-in animation finished. Proceeding to rest countdown.")
+
+                // Set the initial countdown value here, right before transitioning to .resting phase.
+                self.currentCountdown = self.restSeconds
+
+                self.overlayPhase = .resting // Transition to resting phase
+                self.startRestCountdown() // Start the actual rest countdown
+            }
+
+            // Set the final alphaValue on the animator proxy.
+            // When set within an NSAnimationContext, this change will be animated.
+            self.overlayWindow?.animator().alphaValue = 1.0
+
+            NSAnimationContext.endGrouping() // End the animation context, triggering the animation.
+            print("OverlayWindow ordered front, app activated, and fade-in animation started.")
         }
     }
 

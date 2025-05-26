@@ -1,5 +1,6 @@
 import SwiftUI
 import AppKit
+import QuartzCore
 
 /// A custom NSWindow subclass designed to create a full-screen, borderless, and high-level overlay.
 /// It's configured to appear above most other windows and intercept mouse events.
@@ -22,6 +23,7 @@ class OverlayWindow: NSWindow {
         self.hasShadow = false // Remove any window shadows.
         self.ignoresMouseEvents = false // Important: Do NOT ignore mouse events, so clicks are intercepted.
         self.canHide = false // Prevent the window from being hidden by standard means.
+        self.alphaValue = 0.0 // Start the window fully transparent
         // Note: `makeKeyAndOrderFront(nil)` is called by EyeRestManager AFTER content is set.
     }
 
