@@ -1,7 +1,6 @@
 import Foundation
 import AppKit
 import SwiftUI
-import UserNotifications
 
 /// Manages the core logic for the Digital Quarantine app, including:
 /// - Scheduling regular eye rest breaks.
@@ -13,8 +12,8 @@ class EyeRestManager: NSObject, ObservableObject {
     private var timer: Timer?
     /// The timer that manages the countdown during the eye rest break.
     private var restTimer: Timer?
-    /// The timer that triggers a notification a specified time before the main break.
-    private var notificationTimer: Timer?
+    /// The timer that triggers the status bar icon change before the main break.
+    private var preRestIconTimer: Timer?
     /// The custom NSWindow that creates the full-screen, undismissable overlay.
     private var overlayWindow: OverlayWindow?
 
@@ -36,7 +35,7 @@ class EyeRestManager: NSObject, ObservableObject {
     /// Parameters for the 20-20-20 rule, stored in UserDefaults via @AppStorage.
     @AppStorage("intervalMinutes") private var intervalMinutes: Int = 20
     @AppStorage("restSeconds") private var restSeconds: Int = 20
-    @AppStorage("notificationLeadSeconds") private var notificationLeadSeconds: Int = 30
+    @AppStorage("notificationLeadSeconds") private var preRestIconLeadSeconds: Int = 30
 
     /// Published property for the current countdown value, observed by `OverlayContentView`.
     @Published var currentCountdown: Int = 0
@@ -53,8 +52,6 @@ class EyeRestManager: NSObject, ObservableObject {
         super.init()
         // Observe changes to UserDefaults (settings) to restart the main timer if needed.
         NotificationCenter.default.addObserver(self, selector: #selector(settingsDidChange), name: UserDefaults.didChangeNotification, object: nil)
-        // Request notification authorization when the app starts.
-        requestNotificationAuthorization()
     }
 
     /// Deinitializes the EyeRestManager, removing itself as an observer.
@@ -62,29 +59,18 @@ class EyeRestManager: NSObject, ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
 
-    /// Requests user authorization for sending local notifications.
-    private func requestNotificationAuthorization() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
-            if granted {
-                print("Notification permission granted.")
-            } else if let error = error {
-                print("Notification permission denied: \(error.localizedDescription)")
-            }
-        }
-    }
-
     /// Called when UserDefaults (app settings) change. Restarts the main timer to apply new intervals.
     @objc private func settingsDidChange() {
         restartTimer()
     }
 
-    /// Starts or restarts the main timer for eye rest breaks and schedules the pre-rest notification.
+    /// Starts or restarts the main timer for eye rest breaks and schedules the pre-rest icon change.
     func startTimer() {
         timer?.invalidate() // Invalidate any existing main timer.
-        notificationTimer?.invalidate()
+        preRestIconTimer?.invalidate() // Invalidate any existing pre-rest icon timer.
 
         let breakInterval = TimeInterval(intervalMinutes * 60)
-        let notificationLead = TimeInterval(notificationLeadSeconds)
+        let iconLead = TimeInterval(preRestIconLeadSeconds) // Use the renamed property
 
         // Ensure the main timer interval is at least 1 second.
         let safeBreakInterval = max(1.0, breakInterval)
@@ -93,59 +79,38 @@ class EyeRestManager: NSObject, ObservableObject {
         timer = Timer.scheduledTimer(timeInterval: safeBreakInterval, target: self, selector: #selector(triggerRest), userInfo: nil, repeats: true)
         print("Digital Quarantine main timer started. Next break in \(intervalMinutes) minutes (\(safeBreakInterval) seconds).")
 
-        // Schedule the pre-rest notification if lead time is valid and less than the break interval.
-        if notificationLead > 0 && notificationLead < safeBreakInterval {
-            let notificationFireTime = safeBreakInterval - notificationLead
-            notificationTimer = Timer.scheduledTimer(timeInterval: notificationFireTime, target: self, selector: #selector(showPreRestNotification), userInfo: nil, repeats: false) // One-shot timer
-            print("Pre-rest notification scheduled for \(notificationFireTime) seconds before break.")
+        // Schedule the pre-rest icon change if lead time is valid.
+        if iconLead > 0 && iconLead < safeBreakInterval {
+            let iconChangeFireTime = safeBreakInterval - iconLead
+            preRestIconTimer = Timer.scheduledTimer(timeInterval: iconChangeFireTime, target: self, selector: #selector(changeIconForPreRest), userInfo: nil, repeats: false) // One-shot timer
+            print("Pre-rest icon change scheduled for \(iconChangeFireTime) seconds before break.")
         } else {
-            print("Pre-rest notification not scheduled (lead time 0 or too long/short).")
+            print("Pre-rest icon change not scheduled (lead time 0 or too long/short).")
         }
+        // Ensure icon is default when timer starts (important if restarted after break).
+        statusBarController?.updateIcon(.default)
     }
 
     /// Restarts the main timer, typically called after settings are changed.
     func restartTimer() {
         print("Restarting timer due to settings change...")
-        timer?.invalidate() // Invalidate current main timer.
-        notificationTimer?.invalidate()
-        startTimer() // Start a new timer with potentially updated settings.
+        timer?.invalidate()
+        preRestIconTimer?.invalidate() // Invalidate pre-rest icon timer on restart.
+        startTimer() // Starts new timers with updated settings.
     }
 
-    /// Called by `notificationTimer` to display a notification before the break starts.
-    @objc private func showPreRestNotification() {
-        sendLocalNotification(
-            title: "Digital Quarantine Break Coming!",
-            body: "Your eye rest break starts in \(notificationLeadSeconds) seconds. Get ready!"
-        )
-    }
-
-    /// Helper method to send a local user notification.
-    /// - Parameters:
-    ///   - title: The title of the notification.
-    ///   - body: The main content text of the notification.
-    private func sendLocalNotification(title: String, body: String) {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = UNNotificationSound.default // Use default notification sound.
-
-        // Create a request to deliver the notification immediately.
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error sending notification: \(error.localizedDescription)")
-            } else {
-                print("Notification sent: '\(title)'")
-            }
-        }
+    /// Called by `preRestIconTimer` to change the status bar icon to the pre-rest indicator.
+    @objc private func changeIconForPreRest() {
+        statusBarController?.updateIcon(.preRest)
+        print("Status bar icon changed to pre-rest indicator.")
     }
 
     /// Called when the main timer fires, initiating an eye rest break.
     @objc private func triggerRest() {
-        // Invalidate the notification timer here too, just in case it's still pending
+        // Invalidate the pre-rest icon timer here too, just in case it's still pending
         // and the main timer fired slightly early or was manually triggered.
-        notificationTimer?.invalidate() // Invalidate pending notification
-        
+        preRestIconTimer?.invalidate() // Invalidate pending icon change.
+
         print("Time for a break! Initiating break.")
         showOverlay() // Display the full-screen overlay.
         startRestCountdown() // Start the countdown for the break duration.
@@ -153,8 +118,7 @@ class EyeRestManager: NSObject, ObservableObject {
 
     /// Displays the full-screen, undismissable overlay.
     private func showOverlay() {
-        // ... (No functional changes here, only comments/prints removed) ...
-        // All previous debug prints should be removed, as per cleanup request.
+        // ... (existing implementation - no functional changes here) ...
         DispatchQueue.main.async {
             let screenRect = NSScreen.main?.frame ?? NSScreen.screens.first?.frame ?? NSRect.zero
             if screenRect.size.width == 0 || screenRect.size.height == 0 {
@@ -185,11 +149,12 @@ class EyeRestManager: NSObject, ObservableObject {
 
     /// Hides the full-screen overlay and reactivates the main application.
     private func hideOverlay() {
-        // ... (No functional changes here, only comments/prints removed) ...
         DispatchQueue.main.async {
             self.overlayWindow?.orderOut(nil)
             self.overlayWindow = nil
             NSApp.activate(ignoringOtherApps: true)
+            // Change icon back to default after rest period ends.
+            self.statusBarController?.updateIcon(.default)
         }
     }
 
@@ -211,7 +176,6 @@ class EyeRestManager: NSObject, ObservableObject {
     }
 
     /// Returns a random eye rest instruction from the predefined list.
-    /// - Returns: A string containing a random instruction.
     private func getRandomInstruction() -> String {
         return eyeRestInstructions.randomElement() ?? "Take a deep breath."
     }
