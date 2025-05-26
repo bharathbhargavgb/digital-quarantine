@@ -1,6 +1,7 @@
 import Foundation
 import AppKit
 import SwiftUI
+import UserNotifications
 
 /// Manages the core logic for the Digital Quarantine app, including:
 /// - Scheduling regular eye rest breaks.
@@ -12,6 +13,8 @@ class EyeRestManager: NSObject, ObservableObject {
     private var timer: Timer?
     /// The timer that manages the countdown during the eye rest break.
     private var restTimer: Timer?
+    /// The timer that triggers a notification a specified time before the main break.
+    private var notificationTimer: Timer?
     /// The custom NSWindow that creates the full-screen, undismissable overlay.
     private var overlayWindow: OverlayWindow?
 
@@ -33,7 +36,7 @@ class EyeRestManager: NSObject, ObservableObject {
     /// Parameters for the 20-20-20 rule, stored in UserDefaults via @AppStorage.
     @AppStorage("intervalMinutes") private var intervalMinutes: Int = 20
     @AppStorage("restSeconds") private var restSeconds: Int = 20
-    @AppStorage("distanceFeet") private var distanceFeet: Int = 20
+    @AppStorage("notificationLeadSeconds") private var notificationLeadSeconds: Int = 30
 
     /// Published property for the current countdown value, observed by `OverlayContentView`.
     @Published var currentCountdown: Int = 0
@@ -50,6 +53,8 @@ class EyeRestManager: NSObject, ObservableObject {
         super.init()
         // Observe changes to UserDefaults (settings) to restart the main timer if needed.
         NotificationCenter.default.addObserver(self, selector: #selector(settingsDidChange), name: UserDefaults.didChangeNotification, object: nil)
+        // Request notification authorization when the app starts.
+        requestNotificationAuthorization()
     }
 
     /// Deinitializes the EyeRestManager, removing itself as an observer.
@@ -57,32 +62,90 @@ class EyeRestManager: NSObject, ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
 
+    /// Requests user authorization for sending local notifications.
+    private func requestNotificationAuthorization() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if granted {
+                print("Notification permission granted.")
+            } else if let error = error {
+                print("Notification permission denied: \(error.localizedDescription)")
+            }
+        }
+    }
+
     /// Called when UserDefaults (app settings) change. Restarts the main timer to apply new intervals.
     @objc private func settingsDidChange() {
         restartTimer()
     }
 
-    /// Starts or restarts the main timer for eye rest breaks.
+    /// Starts or restarts the main timer for eye rest breaks and schedules the pre-rest notification.
     func startTimer() {
-        timer?.invalidate() // Invalidate any existing timer to prevent multiple timers running.
-        let interval = TimeInterval(intervalMinutes * 60)
-        // Ensure the interval is at least 1 second to prevent issues with very small or zero intervals.
-        let safeInterval = max(1.0, interval)
+        timer?.invalidate() // Invalidate any existing main timer.
+        notificationTimer?.invalidate()
 
-        // Schedule a repeating timer to call `triggerRest` after the specified interval.
-        timer = Timer.scheduledTimer(timeInterval: safeInterval, target: self, selector: #selector(triggerRest), userInfo: nil, repeats: true)
-        print("Digital Quarantine timer started. Next rest in \(intervalMinutes) minutes (\(safeInterval) seconds).")
+        let breakInterval = TimeInterval(intervalMinutes * 60)
+        let notificationLead = TimeInterval(notificationLeadSeconds)
+
+        // Ensure the main timer interval is at least 1 second.
+        let safeBreakInterval = max(1.0, breakInterval)
+
+        // Schedule the main timer to trigger the break.
+        timer = Timer.scheduledTimer(timeInterval: safeBreakInterval, target: self, selector: #selector(triggerRest), userInfo: nil, repeats: true)
+        print("Digital Quarantine main timer started. Next break in \(intervalMinutes) minutes (\(safeBreakInterval) seconds).")
+
+        // Schedule the pre-rest notification if lead time is valid and less than the break interval.
+        if notificationLead > 0 && notificationLead < safeBreakInterval {
+            let notificationFireTime = safeBreakInterval - notificationLead
+            notificationTimer = Timer.scheduledTimer(timeInterval: notificationFireTime, target: self, selector: #selector(showPreRestNotification), userInfo: nil, repeats: false) // One-shot timer
+            print("Pre-rest notification scheduled for \(notificationFireTime) seconds before break.")
+        } else {
+            print("Pre-rest notification not scheduled (lead time 0 or too long/short).")
+        }
     }
 
     /// Restarts the main timer, typically called after settings are changed.
     func restartTimer() {
         print("Restarting timer due to settings change...")
-        timer?.invalidate() // Invalidate current timer.
+        timer?.invalidate() // Invalidate current main timer.
+        notificationTimer?.invalidate()
         startTimer() // Start a new timer with potentially updated settings.
+    }
+
+    /// Called by `notificationTimer` to display a notification before the break starts.
+    @objc private func showPreRestNotification() {
+        sendLocalNotification(
+            title: "Digital Quarantine Break Coming!",
+            body: "Your eye rest break starts in \(notificationLeadSeconds) seconds. Get ready!"
+        )
+    }
+
+    /// Helper method to send a local user notification.
+    /// - Parameters:
+    ///   - title: The title of the notification.
+    ///   - body: The main content text of the notification.
+    private func sendLocalNotification(title: String, body: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default // Use default notification sound.
+
+        // Create a request to deliver the notification immediately.
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error sending notification: \(error.localizedDescription)")
+            } else {
+                print("Notification sent: '\(title)'")
+            }
+        }
     }
 
     /// Called when the main timer fires, initiating an eye rest break.
     @objc private func triggerRest() {
+        // Invalidate the notification timer here too, just in case it's still pending
+        // and the main timer fired slightly early or was manually triggered.
+        notificationTimer?.invalidate() // Invalidate pending notification
+        
         print("Time for a break! Initiating break.")
         showOverlay() // Display the full-screen overlay.
         startRestCountdown() // Start the countdown for the break duration.
@@ -90,90 +153,59 @@ class EyeRestManager: NSObject, ObservableObject {
 
     /// Displays the full-screen, undismissable overlay.
     private func showOverlay() {
-        print("showOverlay() called.")
-
-        // Ensure UI updates and window operations happen on the main thread.
+        // ... (No functional changes here, only comments/prints removed) ...
+        // All previous debug prints should be removed, as per cleanup request.
         DispatchQueue.main.async {
-            print("Inside main async block for overlay.")
-
-            // Get the primary screen's dimensions to make the overlay full screen.
             let screenRect = NSScreen.main?.frame ?? NSScreen.screens.first?.frame ?? NSRect.zero
-
-            print("screenRect: \(screenRect)")
-            // Basic check to ensure valid screen dimensions were obtained.
             if screenRect.size.width == 0 || screenRect.size.height == 0 {
                 print("ERROR: screenRect is zero or invalid, cannot show overlay!")
                 return
             }
 
-            // Initialize the custom overlay window with borderless style and screen saver level.
             self.overlayWindow = OverlayWindow(contentRect: screenRect, backing: .buffered, defer: false)
-
-            print("OverlayWindow created instance: \(String(describing: self.overlayWindow))")
-            // Check if the window was successfully created.
             if self.overlayWindow == nil {
                 print("ERROR: OverlayWindow failed to initialize (is nil)! Check OverlayWindow.swift init.")
                 return
             }
 
-            // Host the SwiftUI `OverlayContentView` inside the `NSWindow`.
-            // Pass `self` (EyeRestManager) as an `ObservedObject` and the `screenCGSize`
-            // to ensure the SwiftUI content correctly fills the window.
             self.overlayWindow?.contentViewController = NSHostingController(rootView:
                 OverlayContentView(eyeRestManager: self, viewSize: screenRect.size)
             )
 
-            print("NSHostingController with OverlayContentView set.")
-
-            // Explicitly configure the NSHostingController's underlying NSView.
-            // This ensures the background is solid black and opaque, addressing previous rendering issues.
             if let hostingView = self.overlayWindow?.contentView {
-                hostingView.wantsLayer = true // Enable layer-backed drawing.
-                hostingView.layer?.backgroundColor = NSColor.black.cgColor // Set the layer's background color to black.
-                print("Ensured hostingView is opaque and black via layer.")
+                hostingView.wantsLayer = true
+                hostingView.layer?.backgroundColor = NSColor.black.cgColor
             }
 
-            // Activate the application to bring its windows to the foreground.
-            // `ignoringOtherApps: true` attempts to force activation even if another app is active.
             NSApp.activate(ignoringOtherApps: true)
-            print("NSApp.activate(ignoringOtherApps: true) called.")
-
-            // Order the window to be key (receive events) and front (visible on top).
             self.overlayWindow?.makeKeyAndOrderFront(nil)
-            // `orderFrontRegardless` ensures it's on top of all other windows, including full-screen apps.
             self.overlayWindow?.orderFrontRegardless()
-
-            print("OverlayWindow ordered front and key.")
         }
     }
 
     /// Hides the full-screen overlay and reactivates the main application.
     private func hideOverlay() {
+        // ... (No functional changes here, only comments/prints removed) ...
         DispatchQueue.main.async {
-            self.overlayWindow?.orderOut(nil) // Hide the window.
-            self.overlayWindow = nil // Release the window reference.
-            // Reactivate the app (e.g., to bring its menubar icon back to normal focus).
+            self.overlayWindow?.orderOut(nil)
+            self.overlayWindow = nil
             NSApp.activate(ignoringOtherApps: true)
-            print("Overlay hidden and app activated.")
         }
     }
 
     /// Starts the countdown timer for the eye rest break duration.
     private func startRestCountdown() {
-        currentCountdown = restSeconds // Initialize countdown with the configured rest duration.
-        // Get a random instruction and append the distance suggestion.
-        currentInstruction = getRandomInstruction() + "\n(Look \(distanceFeet) feet away!)"
+        currentCountdown = restSeconds
+        currentInstruction = getRandomInstruction() + "\n(Look 20 feet away!)"
 
-        restTimer?.invalidate() // Invalidate any previous rest timer.
-        // Schedule a repeating timer that fires every second.
+        restTimer?.invalidate()
         restTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            guard let self = self else { return } // Ensure self is still valid.
-            self.currentCountdown -= 1 // Decrement the countdown.
+            guard let self = self else { return }
+            self.currentCountdown -= 1
             if self.currentCountdown <= 0 {
-                timer.invalidate() // Stop the countdown timer.
-                self.hideOverlay() // Hide the overlay.
-                print("Rest period ended. Resuming normal operation.")
-                self.startTimer() // Restart the main interval timer.
+                timer.invalidate()
+                self.hideOverlay()
+                self.startTimer()
             }
         }
     }
