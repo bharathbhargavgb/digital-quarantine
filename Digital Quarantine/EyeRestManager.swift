@@ -45,6 +45,10 @@ class EyeRestManager: NSObject, ObservableObject {
     /// A weak reference to the StatusBarController, primarily for potential app termination.
     weak var statusBarController: StatusBarController?
 
+    /// Stores the application that was active before the overlay was shown,
+    /// so focus can be returned to it later.
+    private var lastActiveApp: NSRunningApplication?
+
     /// Initializes the EyeRestManager.
     /// - Parameter statusBarController: The controller managing the status bar item.
     init(statusBarController: StatusBarController) {
@@ -141,9 +145,18 @@ class EyeRestManager: NSObject, ObservableObject {
                 hostingView.layer?.backgroundColor = NSColor.black.cgColor
             }
 
+            // Capture the currently active application *before* we activate ours.
+            self.lastActiveApp = NSWorkspace.shared.frontmostApplication
+            print("Captured last active app: \(self.lastActiveApp?.bundleIdentifier ?? "N/A")")
+
+            // Activate our application. This will make it the frontmost app and steal focus.
             NSApp.activate(ignoringOtherApps: true)
+            // Make the overlay window key (receives keyboard events) and order it to the front.
             self.overlayWindow?.makeKeyAndOrderFront(nil)
+            // Ensure it's on top of all other windows, including full-screen apps.
             self.overlayWindow?.orderFrontRegardless()
+
+            print("OverlayWindow ordered front and app activated (stealing focus).")
         }
     }
 
@@ -152,7 +165,24 @@ class EyeRestManager: NSObject, ObservableObject {
         DispatchQueue.main.async {
             self.overlayWindow?.orderOut(nil)
             self.overlayWindow = nil
-            NSApp.activate(ignoringOtherApps: true)
+
+            if let lastApp = self.lastActiveApp {
+                print("Rest period ended, attempting to reactivate: \(lastApp.bundleIdentifier ?? "N/A")")
+                // Activate the previously stored application.
+                // The `options` parameter is removed as `activateIgnoringOtherApps` is deprecated.
+                lastApp.activate()
+
+                // Immediately deactivate our own app to ensure focus is relinquished.
+                // This typically causes macOS to give focus to the app we just activated.
+                NSApp.deactivate()
+            } else {
+                // If no previous app was tracked, deactivate our own app
+                // to return focus to the desktop/Finder or the next available app.
+                print("No last active app tracked. Deactivating Digital Quarantine.")
+                NSApp.deactivate()
+            }
+            self.lastActiveApp = nil // Clear the reference to prevent retaining previous app
+
             // Change icon back to default after rest period ends.
             self.statusBarController?.updateIcon(.default)
         }
