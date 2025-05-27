@@ -25,6 +25,9 @@ class OverlayWindow: NSWindow {
         self.canHide = false // Prevent the window from being hidden by standard means.
         self.alphaValue = 0.0 // Start the window fully transparent
         // Note: `makeKeyAndOrderFront(nil)` is called by EyeRestManager AFTER content is set.
+
+        // This makes the overlay visible to the local user but invisible to screen sharing participants.
+        self.sharingType = .none
     }
 
     /// Overrides to allow the window to become the key window, enabling it to receive keyboard events.
