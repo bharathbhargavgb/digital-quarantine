@@ -33,7 +33,9 @@ Whenever the screen blacks-out, get out of wherever you are, do a few stretches,
  - Tune preferences based on your need. Although, we recommend you set it at 20-20-20
  - Complete blackout forcing you to look away
  - Subtle headsup for an upcoming break with a temporary status icon change
- - App launches automatically after system restart or in case of any crashes due to external factors
+ - App launches automatically after system restart
+ - The overlay is hidden from screen-sharing apps
+ - Supports multi-monitor configuration
 
 ## Other links
  - <a href="https://github.com/bharathbhargavgb/digital-quarantine/releases">Releases</a>
