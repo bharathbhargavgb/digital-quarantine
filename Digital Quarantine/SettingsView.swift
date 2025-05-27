@@ -12,7 +12,6 @@ struct SettingsView: View {
     @State private var intervalMinutesInput: Int = 20
     @State private var restSecondsInput: Int = 20
     @State private var notificationLeadSecondsInput: Int = 30
-    @State private var launchAtLoginInput: Bool = false
 
     // State to track if any setting has been changed by the user.
     // This controls the enabled/disabled state of the Save button.
@@ -27,7 +26,6 @@ struct SettingsView: View {
     private let kIntervalMinutes = "intervalMinutes"
     private let kRestSeconds = "restSeconds"
     private let kNotificationLeadSeconds = "notificationLeadSeconds"
-    private let kLaunchAtLogin = "launchAtLogin"
 
     var body: some View {
         VStack(spacing: 15) {
@@ -66,11 +64,6 @@ struct SettingsView: View {
                     .onChange(of: notificationLeadSecondsInput) { isDirty = true }
                 Text("seconds before break")
             }
-            
-            Toggle(isOn: $launchAtLoginInput) {
-                Text("Launch at Login")
-            }
-            .onChange(of: launchAtLoginInput) { isDirty = true }
 
             Divider()
 
@@ -91,7 +84,7 @@ struct SettingsView: View {
             }
         }
         .padding()
-        .frame(width: 300, height: 230)
+        .frame(width: 300, height: 200)
         .onAppear {
             loadSettings() // Load initial settings from UserDefaults when the view first appears.
             isDirty = false // Reset dirty state after loading initial settings, as no changes have been made yet.
@@ -110,7 +103,6 @@ struct SettingsView: View {
         intervalMinutesInput = UserDefaults.standard.integer(forKey: kIntervalMinutes) == 0 ? 20 : UserDefaults.standard.integer(forKey: kIntervalMinutes)
         restSecondsInput = UserDefaults.standard.integer(forKey: kRestSeconds) == 0 ? 20 : UserDefaults.standard.integer(forKey: kRestSeconds)
         notificationLeadSecondsInput = UserDefaults.standard.integer(forKey: kNotificationLeadSeconds) == 0 ? 30 : UserDefaults.standard.integer(forKey: kNotificationLeadSeconds)
-        launchAtLoginInput = UserDefaults.standard.bool(forKey: kLaunchAtLogin)
     }
 
     /// Validates the input values and persists them to `UserDefaults` if valid.
@@ -157,7 +149,6 @@ struct SettingsView: View {
             UserDefaults.standard.set(validatedIntervalMinutes, forKey: kIntervalMinutes)
             UserDefaults.standard.set(validatedRestSeconds, forKey: kRestSeconds)
             UserDefaults.standard.set(validatedNotificationLeadSeconds, forKey: kNotificationLeadSeconds)
-            UserDefaults.standard.set(launchAtLoginInput, forKey: kLaunchAtLogin)
 
             print("Settings saved: Interval=\(validatedIntervalMinutes), Rest=\(validatedRestSeconds), Notify=\(validatedNotificationLeadSeconds)")
 
