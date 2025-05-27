@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8E92889B2DE53AF900F5332C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E92889A2DE53AF900F5332C /* ServiceManagement.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		8E9288172DE3F91200F5332C /* Digital Quarantine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Digital Quarantine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E92889A2DE53AF900F5332C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E92889B2DE53AF900F5332C /* ServiceManagement.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +39,7 @@
 			isa = PBXGroup;
 			children = (
 				8E9288192DE3F91200F5332C /* Digital Quarantine */,
+				8E9288992DE53AF900F5332C /* Frameworks */,
 				8E9288182DE3F91200F5332C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +50,14 @@
 				8E9288172DE3F91200F5332C /* Digital Quarantine.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8E9288992DE53AF900F5332C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E92889A2DE53AF900F5332C /* ServiceManagement.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
