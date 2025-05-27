@@ -1,0 +1,50 @@
+# Xcode
+#
+# Typically, you should commit only the files that are part of your project and are
+# necessary for building it. This includes source code, project files, and resources.
+#
+# Generated files, user-specific settings, and temporary files should be ignored.
+#
+# DerivedData: Contains build products, intermediate files, and indexes.
+DerivedData/
+
+# Build directory (if not within DerivedData)
+build/
+
+# Xcode workspace/project user data (user-specific settings)
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Swift Package Manager (SPM) files
+.swiftpm/
+
+# Swift cache files
+.swift-version
+.swiftlint.yml
+
+# Crash logs and other diagnostic reports
+*.crash
+*.xccrashpoint
+*.xcresult
+*.log
+
+# macOS specific files
+.DS_Store
+.localized
+.Trashes
+.Spotlight-V100
+.TemporaryItems
+ehthumbs.db
+Thumbs.db
+
+# Swift Playgrounds data
+*.playground/xcuserdata/
+*.playground/playgrounddata/
+
+# User-specific files from IDEs/editors
+.vscode/
+.idea/
+
+# Custom installer package created by the script
+*.pkg
+
