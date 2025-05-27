@@ -24,8 +24,6 @@ class EyeRestManager: NSObject, ObservableObject {
     private var restTimer: Timer?
     /// The timer that triggers the status bar icon change before the main break.
     private var preRestIconTimer: Timer?
-    /// The custom NSWindow that creates the full-screen, undismissable overlay.
-    private var overlayWindow: OverlayWindow?
 
     /// A list of random instructions to display during eye rest breaks.
     private var eyeRestInstructions: [String] = [
@@ -56,6 +54,9 @@ class EyeRestManager: NSObject, ObservableObject {
 
     /// A weak reference to the StatusBarController, primarily for potential app termination.
     weak var statusBarController: StatusBarController?
+
+    /// The custom NSWindow that creates the full-screen, undismissable overlay.
+    private var overlayWindows: [OverlayWindow] = []
 
     /// Stores the application that was active before the overlay was shown,
     /// so focus can be returned to it later.
@@ -135,60 +136,61 @@ class EyeRestManager: NSObject, ObservableObject {
     /// Displays the full-screen, undismissable overlay.
     private func showOverlay() {
         DispatchQueue.main.async {
-            let screenRect = NSScreen.main?.frame ?? NSScreen.screens.first?.frame ?? NSRect.zero
-            if screenRect.size.width == 0 || screenRect.size.height == 0 {
-                print("ERROR: screenRect is zero or invalid, cannot show overlay!")
-                return
-            }
-
-            self.overlayWindow = OverlayWindow(contentRect: screenRect, backing: .buffered, defer: false)
-            if self.overlayWindow == nil {
-                print("ERROR: OverlayWindow failed to initialize (is nil)! Check OverlayWindow.swift init.")
-                return
-            }
-
-            self.overlayWindow?.contentViewController = NSHostingController(rootView:
-                OverlayContentView(eyeRestManager: self, viewSize: screenRect.size)
-            )
-
-            if let hostingView = self.overlayWindow?.contentView {
-                hostingView.wantsLayer = true
-                hostingView.layer?.backgroundColor = NSColor.black.cgColor
-            }
+            // Clear any old windows to ensure a fresh set for current screen configuration.
+            self.overlayWindows = []
 
             // Capture the currently active application *before* we activate ours.
             self.lastActiveApp = NSWorkspace.shared.frontmostApplication
             print("Captured last active app: \(self.lastActiveApp?.bundleIdentifier ?? "N/A")")
 
-            // Activate our application. This will make it the frontmost app and steal focus.
+            // Activate our application once. This will steal focus.
             NSApp.activate(ignoringOtherApps: true)
-            // Make the overlay window key (receives keyboard events) and order it to the front.
-            self.overlayWindow?.makeKeyAndOrderFront(nil)
-            // Ensure it's on top of all other windows, including full-screen apps.
-            self.overlayWindow?.orderFrontRegardless()
 
-            // Set initial alpha again just to be safe before animation.
-            self.overlayWindow?.alphaValue = 0.0
-
-            NSAnimationContext.beginGrouping() // Start an animation context.
-            NSAnimationContext.current.duration = FADE_DURATION // Set the duration for animations within this context.
-            // Set the timing function for animations within this context.
+            // Begin a single animation context for all windows' fade-in
+            NSAnimationContext.beginGrouping()
+            NSAnimationContext.current.duration = FADE_DURATION
             NSAnimationContext.current.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            
+
+            // Set the completion handler for this *single* animation context.
+            // It will fire only after all animations added within this context complete.
             NSAnimationContext.current.completionHandler = { [weak self] in
                 guard let self = self else { return }
-                print("Fade-in animation finished. Proceeding to rest countdown.")
-
-                // Set the initial countdown value here, right before transitioning to .resting phase.
+                print("Fade-in animation finished on all windows. Proceeding to rest countdown.")
                 self.currentCountdown = self.restSeconds
-
-                self.overlayPhase = .resting // Transition to resting phase
+                self.overlayPhase = .resting
                 self.startRestCountdown() // Start the actual rest countdown
             }
 
-            // Set the final alphaValue on the animator proxy.
-            // When set within an NSAnimationContext, this change will be animated.
-            self.overlayWindow?.animator().alphaValue = 1.0
+            // Loop through all available screens and create an overlay window for each.
+            for screen in NSScreen.screens {
+                let screenRect = screen.frame // Get the frame for the current screen
+
+                // Create a new OverlayWindow for this specific screen.
+                let window = OverlayWindow(contentRect: screenRect, backing: .buffered, defer: false)
+
+                // Add content to the window.
+                // Pass the current screen's size to the content view.
+                window.contentViewController = NSHostingController(rootView:
+                    OverlayContentView(eyeRestManager: self, viewSize: screenRect.size)
+                )
+
+                if let hostingView = window.contentView {
+                    hostingView.wantsLayer = true
+                    hostingView.layer?.backgroundColor = NSColor.black.cgColor
+                }
+
+                // Order the window to be key and front.
+                // It's crucial to makeKeyAndOrderFront before animating alpha, as it makes it visible.
+                window.makeKeyAndOrderFront(nil)
+                window.orderFrontRegardless()
+
+                // Apply the fade-in animation to this window within the current context.
+                // This will start the animation as part of the NSAnimationContext grouping.
+                window.alphaValue = 0.0 // Ensure it starts transparent
+                window.animator().alphaValue = 1.0 // Animate to full opacity
+
+                self.overlayWindows.append(window)
+            }
 
             NSAnimationContext.endGrouping() // End the animation context, triggering the animation.
             print("OverlayWindow ordered front, app activated, and fade-in animation started.")
@@ -198,8 +200,11 @@ class EyeRestManager: NSObject, ObservableObject {
     /// Hides the full-screen overlay and reactivates the main application.
     private func hideOverlay() {
         DispatchQueue.main.async {
-            self.overlayWindow?.orderOut(nil)
-            self.overlayWindow = nil
+            // Loop through all stored windows and dismiss them.
+            for window in self.overlayWindows {
+                window.orderOut(nil)
+            }
+            self.overlayWindows = []
 
             if let lastApp = self.lastActiveApp {
                 print("Rest period ended, attempting to reactivate: \(lastApp.bundleIdentifier ?? "N/A")")
